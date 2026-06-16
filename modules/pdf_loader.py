@@ -1,28 +1,20 @@
-# pdf_loader.py
+import fitz
 
-"""
-DocuMind AI
-Module: PDF Loader
-
-Purpose:
-- Load PDF documents
-- Extract text content
-- Return cleaned text for further processing
-"""
 
 class PDFLoader:
 
     def __init__(self):
-        pass
+        print("PDF Loader Initialized")
 
     def load_pdf(self, pdf_path):
-        """
-        Load PDF file.
 
-        Parameters:
-            pdf_path (str): Path of PDF file
+        document = fitz.open(pdf_path)
 
-        Returns:
-            str: Extracted text
-        """
-        pass
+        extracted_text = ""
+
+        for page in document:
+            extracted_text += page.get_text()
+
+        document.close()
+
+        return extracted_text
