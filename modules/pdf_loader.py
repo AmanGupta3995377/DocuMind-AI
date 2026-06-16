@@ -17,4 +17,6 @@ class PDFLoader:
 
         document.close()
 
+        print(f"Total Characters Extracted: {len(extracted_text)}")
+
         return extracted_text

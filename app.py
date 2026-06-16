@@ -1,10 +1,11 @@
 from modules.pdf_loader import PDFLoader
+from modules.chunking import TextChunker
 
 
 def main():
 
     print("=" * 50)
-    print("DocuMind AI - PDF Extraction Test")
+    print("DocuMind AI - PDF Extraction & Chunking Test")
     print("=" * 50)
 
     # Initialize PDF Loader
@@ -27,19 +28,54 @@ def main():
 
     print(f"\nExtracted text saved to: {output_path}")
 
-    # Show beginning of PDF
-    print("\n" + "=" * 50)
-    print("FIRST 1000 CHARACTERS")
-    print("=" * 50)
-    print(text[:1000])
+    # Initialize Chunker
+    chunker = TextChunker(
+    chunk_size=500,
+    overlap=100
+)
 
-    # Show ending of PDF
-    print("\n" + "=" * 50)
-    print("LAST 1000 CHARACTERS")
-    print("=" * 50)
-    print(text[-1000:])
+    # Create Chunks
+    chunks = chunker.create_chunks(text)
 
-    print("\nPDF Extraction Completed Successfully!")
+    print("\nChunking Statistics")
+    print("-" * 50)
+    print("Total Chunks Created:", len(chunks))
+    print("Chunk Size:", chunker.chunk_size)
+    print("Overlap:", chunker.overlap)
+
+    # Display first chunk
+    print("\n" + "=" * 50)
+    print("FIRST CHUNK")
+    print("=" * 50)
+    print(chunks[0])
+
+    # Display second chunk
+    if len(chunks) > 1:
+        print("\n" + "=" * 50)
+        print("SECOND CHUNK")
+        print("=" * 50)
+        print(chunks[1])
+
+    # Display last chunk
+    print("\n" + "=" * 50)
+    print("LAST CHUNK")
+    print("=" * 50)
+    print(chunks[-1])
+
+    # Save chunks to file
+    chunks_output = "data/processed_documents/chunks.txt"
+
+    with open(chunks_output, "w", encoding="utf-8") as file:
+
+        for i, chunk in enumerate(chunks):
+            file.write(f"\n\n{'='*50}\n")
+            file.write(f"CHUNK {i+1}\n")
+            file.write(f"{'='*50}\n")
+            file.write(chunk)
+
+    print(f"\nChunks saved to: {chunks_output}")
+
+    print("\nChunking Completed Successfully!")
 
 
 if __name__ == "__main__":

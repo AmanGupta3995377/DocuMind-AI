@@ -1,0 +1,14 @@
+Document: Cyber Security Notes
+
+Experiment 1
+Chunk Size: 500
+Overlap: 0
+Chunks Generated: 101
+
+Experiment 2
+Chunk Size: 500
+Overlap: 100
+Chunks Generated: 126
+
+Observation:
+Overlapping chunking generated more chunks and preserved context between chunk boundaries, making it more suitable for Retrieval-Augmented Generation (RAG) systems.
