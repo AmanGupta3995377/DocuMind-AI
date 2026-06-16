@@ -1,3 +1,4 @@
+from modules.embeddings import EmbeddingGenerator
 from modules.pdf_loader import PDFLoader
 from modules.chunking import TextChunker
 
@@ -5,7 +6,7 @@ from modules.chunking import TextChunker
 def main():
 
     print("=" * 50)
-    print("DocuMind AI - PDF Extraction & Chunking Test")
+    print("DocuMind AI - PDF Extraction, Chunking & Embeddings Test")
     print("=" * 50)
 
     # Initialize PDF Loader
@@ -30,9 +31,9 @@ def main():
 
     # Initialize Chunker
     chunker = TextChunker(
-    chunk_size=500,
-    overlap=100
-)
+        chunk_size=500,
+        overlap=100
+    )
 
     # Create Chunks
     chunks = chunker.create_chunks(text)
@@ -42,6 +43,19 @@ def main():
     print("Total Chunks Created:", len(chunks))
     print("Chunk Size:", chunker.chunk_size)
     print("Overlap:", chunker.overlap)
+
+    # Generate Embeddings
+    print("\nGenerating Embeddings...")
+
+    embedding_generator = EmbeddingGenerator()
+
+    embeddings = embedding_generator.generate_embeddings(
+        chunks
+    )
+
+    print("\nEmbedding Statistics")
+    print("-" * 50)
+    print("Embedding Shape:", embeddings.shape)
 
     # Display first chunk
     print("\n" + "=" * 50)
@@ -75,7 +89,7 @@ def main():
 
     print(f"\nChunks saved to: {chunks_output}")
 
-    print("\nChunking Completed Successfully!")
+    print("\nDocuMind AI Pipeline Completed Successfully!")
 
 
 if __name__ == "__main__":
