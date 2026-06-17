@@ -66,3 +66,14 @@ Embedding Pipeline Completed
 
 ### Status
 Semantic Retrieval System Completed
+
+Day 6
+
+Completed:
+- Created Gemini API integration
+- Fixed project-level quota issue
+- Created dedicated Google Cloud project
+- Successfully generated responses using Gemini
+
+Status:
+LLM Layer Completed
