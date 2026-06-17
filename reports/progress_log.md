@@ -50,3 +50,19 @@ Document Ingestion Pipeline V1 Completed
 
 ### Status
 Embedding Pipeline Completed
+
+## Day 5
+
+### Completed
+- Implemented Retriever Module
+- Added Cosine Similarity Search
+- Retrieved Top Relevant Chunks
+- Tested Semantic Search on Cyber Security PDF
+
+### Results
+- Chunks Indexed: 126
+- Embedding Dimension: 384
+- Retrieval Successful
+
+### Status
+Semantic Retrieval System Completed
