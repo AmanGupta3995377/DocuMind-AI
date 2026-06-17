@@ -88,3 +88,18 @@ class VectorStore:
             return pickle.load(
                 file
             )
+
+    def search(
+        self,
+        query_embedding,
+        top_k=3
+    ):
+
+        distances, indices = self.index.search(
+            query_embedding.reshape(1, -1).astype(
+                np.float32
+            ),
+            top_k
+        )
+
+        return indices[0]
