@@ -1,4 +1,4 @@
-from modules.retriever import Retriever
+from modules.vector_store import VectorStore
 from llm.gemini_adapter import GeminiAdapter
 
 
@@ -6,14 +6,17 @@ class QASystem:
 
     def __init__(self):
 
-        self.retriever = Retriever()
+        self.vector_store = VectorStore()
+
+        self.vector_store.load_index()
+
+        self.chunks = self.vector_store.load_chunks()
+
         self.llm = GeminiAdapter()
 
     def answer_question(
         self,
         question,
-        chunk_embeddings,
-        chunks,
         embedding_generator
     ):
 
@@ -23,22 +26,24 @@ class QASystem:
             )
         )
 
-        results = self.retriever.retrieve(
+        indices = self.vector_store.search(
             query_embedding,
-            chunk_embeddings,
-            chunks,
             top_k=3
         )
 
         context = ""
 
-        for score, chunk in results:
-            context += chunk + "\n\n"
+        for idx in indices:
+
+            context += (
+                self.chunks[idx]
+                + "\n\n"
+            )
 
         prompt = f"""
 You are a document question answering assistant.
 
-Answer the question ONLY using the provided context.
+Answer ONLY using the provided context.
 
 Context:
 {context}
